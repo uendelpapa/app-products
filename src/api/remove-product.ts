@@ -1,31 +1,33 @@
-"use server";
 import { api } from "@/lib/axios";
 
-export type AddProductResponse = {
+interface removeProductData {
+  id: string;
+}
+
+interface RemoveProductResponse {
   codeIntern: string;
   message: string;
-  id: string;
-};
-
-export async function addProduct(formData: FormData) {
+}
+export async function removeProduct({ id }: removeProductData) {
   try {
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0MmM5MGE5NC0yZjFmLTRmYTktOGY5Zi1mMjYwOWNkNTM5ZWYiLCJlbWFpbCI6ImRpdmluZS5rbmlnaHRzREtUVEBnbWFpbC5jb20iLCJwbGF0Zm9ybVJvbGUiOiJVU0VSIiwiaWF0IjoxNzQ4ODA3OTQ0LCJleHAiOjE3NDg4OTQzNDR9.IyzISLlFMZmMCY8lIptpmx-MeFt7hSC8IOvuFui-YQY";
 
-    const response = await api.post<AddProductResponse>("products", formData, {
+    const response = await api.delete<RemoveProductResponse>(`products/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    console.log("Response from API:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Erro ao adicionar produto:", error);
+    console.error("Erro ao remover produto:", error);
     if (error instanceof Error) {
       throw new Error(error.message);
     } else {
-      throw new Error("Erro desconhecido ao adicionar produto");
+      throw new Error("Erro desconhecido ao remover produto");
     }
   }
+
+  return;
 }

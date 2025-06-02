@@ -21,14 +21,17 @@ import { useProductStore } from "@/store";
 const addProductSchema = z.object({
   title: z.string().min(1, "Título é obrigatório"),
   description: z.string().min(1, "Descrição é obrigatória"),
-  thumbnail: z.instanceof(File, { message: "Imagem é obrigatória" }),
 });
 
 type AddProductData = z.infer<typeof addProductSchema>;
 
-export function AddProductButton() {
+interface UpdateProductButtonProps {
+  id: string;
+}
+
+export function UpdateProductButton({ id }: UpdateProductButtonProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { addProduct } = useProductStore();
+  const { updateProduct } = useProductStore();
 
   const {
     register,
@@ -40,7 +43,6 @@ export function AddProductButton() {
     defaultValues: {
       title: "",
       description: "",
-      thumbnail: undefined, // Inicialmente sem arquivo
     },
   });
 
@@ -67,10 +69,9 @@ export function AddProductButton() {
       const formData = new FormData();
       formData.append("title", data.title);
       formData.append("description", data.description);
-      formData.append("thumbnail", data.thumbnail);
 
       // console.log("FormData:", formData);
-      await addProduct(formData);
+      await updateProduct(id, formData);
       successToast();
       onOpenChange();
     } catch (error) {
@@ -86,14 +87,14 @@ export function AddProductButton() {
   return (
     <>
       <Button color="primary" onPress={onOpen}>
-        Adicionar produto
+        Editar produto
       </Button>
       <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
               <form
-                id="add-product-form"
+                id="update-product-form"
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-2"
               >
@@ -120,23 +121,6 @@ export function AddProductButton() {
                     type="text"
                     variant="flat"
                     {...register("description")}
-                  />
-
-                  <Input
-                    endContent={
-                      <IconPhoto className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                    }
-                    label="Imagem"
-                    placeholder="Selecione a imagem do produto"
-                    type="file"
-                    accept="image/*"
-                    variant="flat"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        setValue("thumbnail", file, { shouldValidate: true });
-                      }
-                    }}
                   />
 
                   {/* <div className="flex flex-col gap-2">

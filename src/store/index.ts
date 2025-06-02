@@ -1,5 +1,10 @@
-import { api } from '@/lib/axios';
-import { create } from 'zustand';
+import { addProduct } from "@/api/add-product";
+import { getProducts } from "@/api/get-products";
+import { removeProduct } from "@/api/remove-product";
+import { updateProduct } from "@/api/update-product";
+import { api } from "@/lib/axios";
+import { get } from "http";
+import { create } from "zustand";
 
 interface Product {
   id: string;
@@ -25,6 +30,9 @@ interface ProductStore {
   error: string | null;
   fetchProducts: () => Promise<void>;
   getProduct: (id: string) => Promise<Product | null>;
+  addProduct: (formData: FormData) => Promise<void>;
+  removeProduct: (id: string) => Promise<void>;
+  updateProduct: (id: string, formData: FormData) => Promise<void>;
 }
 
 export const useProductStore = create<ProductStore>((set) => ({
@@ -34,8 +42,8 @@ export const useProductStore = create<ProductStore>((set) => ({
   fetchProducts: async () => {
     set({ loading: true, error: null });
     try {
-      const response = await api.get('products');
-      set({ products: response.data, loading: false });
+      const products = await getProducts();
+      set({ products, loading: false });
     } catch (error: any) {
       set({ error: error.message, loading: false });
     }
@@ -49,6 +57,46 @@ export const useProductStore = create<ProductStore>((set) => ({
     } catch (error: any) {
       set({ error: error.message, loading: false });
       return null;
+    }
+  },
+  addProduct: async (formData: FormData) => {
+    set({ loading: true, error: null });
+    try {
+      await addProduct(formData);
+      const products = await getProducts();
+      set({ products });
+      set({ loading: false });
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
+      throw new Error(error.message);
+    }
+  },
+  removeProduct: async (id: string) => {
+    set({ loading: true, error: null });
+    try {
+      await removeProduct({ id });
+      set((state) => ({
+        products: {
+          ...state.products,
+          data: state.products.data.filter((product) => product.id !== id),
+        },
+        loading: false,
+      }));
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
+      throw new Error(error.message);
+    }
+  },
+  updateProduct: async (id: string, formData: FormData) => {
+    set({ loading: true, error: null });
+    try {
+      await updateProduct({ id, formData });
+      const products = await getProducts();
+      set({ products });
+      set({ loading: false });
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
+      throw new Error(error.message);
     }
   },
 }));

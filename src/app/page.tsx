@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { UpdateProductButton } from "../components/update-product-button";
 
 const columns = [
   {
@@ -49,7 +50,7 @@ const filterProductsSchema = z.object({
 type FilterProductsType = z.infer<typeof filterProductsSchema>;
 
 export default function Home() {
-  const { products, loading, error, fetchProducts } = useProductStore();
+  const { products, loading, error, fetchProducts, removeProduct } = useProductStore();
 
   const {
     register,
@@ -107,7 +108,7 @@ export default function Home() {
         </form>
         <div className="flex gap-4">
           <Button className="">Limpar filtro</Button>
-          <AddProductButton />
+          {/* <AddProductButton /> */}
         </div>
       </div>
 
@@ -122,16 +123,10 @@ export default function Home() {
             <TableRow key={item.id}>
               {(columnKey) => (
                 <TableCell>
-                  {columnKey === "thumbnail" ? (
-                    <img
-                      src="https://via.placeholder.com/32"
-                      alt={item.title}
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                  ) : columnKey === "" ? (
+                  {columnKey === "" ? (
                     <div className="flex justify-end gap-4">
-                      <Button variant="shadow">Editar</Button>
-                      <Button>Excluir</Button>
+                      <UpdateProductButton id={item.id} />
+                      <Button onPress={()=> removeProduct(item.id)}>Excluir</Button>
                     </div>
                   ) : (
                     getKeyValue(item, columnKey)
