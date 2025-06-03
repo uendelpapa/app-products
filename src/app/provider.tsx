@@ -9,7 +9,7 @@ interface ProviderProps {
 
 export function Provider({ children }: ProviderProps) {
   return (
-    <HeroUIProvider className="">
+    <HeroUIProvider className="flex w-full h-full justify-center p-2 gap-2 ">
       <ToastProvider />
       {children}
     </HeroUIProvider>

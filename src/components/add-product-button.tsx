@@ -12,7 +12,7 @@ import {
   Switch,
   addToast,
 } from "@heroui/react";
-import { IconMail, IconMessage, IconPhoto } from "@tabler/icons-react";
+import { IconMail, IconMessage, IconPhoto, IconPlus } from "@tabler/icons-react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,12 +28,13 @@ type AddProductData = z.infer<typeof addProductSchema>;
 
 export function AddProductButton() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { addProduct } = useProductStore();
+  const { loading, addProduct } = useProductStore();
 
   const {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<AddProductData>({
     resolver: zodResolver(addProductSchema),
@@ -46,8 +47,8 @@ export function AddProductButton() {
 
   const successToast = () => {
     addToast({
-      title: "Login bem-sucedido",
-      description: "Você foi autenticado com sucesso!",
+      title: "Produto adicionado com sucesso!",
+      description: "Você adicionou um novo produto!",
       color: "success",
     });
   };
@@ -73,6 +74,7 @@ export function AddProductButton() {
       await addProduct(formData);
       successToast();
       onOpenChange();
+      reset();
     } catch (error) {
       errorToast(
         error instanceof Error
@@ -85,7 +87,8 @@ export function AddProductButton() {
 
   return (
     <>
-      <Button color="primary" onPress={onOpen}>
+      <Button color="primary" className="font-semibold" onPress={onOpen}>
+        <IconPlus className="size-4" />
         Adicionar produto
       </Button>
       <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
@@ -149,10 +152,15 @@ export function AddProductButton() {
                   </div> */}
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="danger" variant="flat" onPress={onClose}>
+                  <Button
+                    color="danger"
+                    variant="flat"
+                    onPress={onClose}
+                    disabled={loading}
+                  >
                     Fechar
                   </Button>
-                  <Button color="primary" type="submit">
+                  <Button color="primary" type="submit" disabled={loading}>
                     Adicionar
                   </Button>
                 </ModalFooter>

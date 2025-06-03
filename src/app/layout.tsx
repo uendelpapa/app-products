@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import { Provider } from "./provider";
+import { Sidebar } from "@/components/sidebar";
+import { SidebarServer } from "@/components/sidebar-server";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,10 +29,13 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex w-full justify-center 
-         antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} flex w-full h-screen justify-center items-center
+         p-2 antialiased`}
       >
-        <Provider>{children}</Provider>
+        <Provider>
+          {/* <SidebarServer /> */}
+          <main className="flex w-full h-full">{children}</main>
+        </Provider>
       </body>
     </html>
   );

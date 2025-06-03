@@ -13,7 +13,9 @@
     "@heroui/input": "^2.4.19",
     "@heroui/navbar": "^2.2.18",
     "@heroui/pagination": "^2.2.18",
+    "@heroui/progress": "^2.2.16",
     "@heroui/react": "^2.7.8",
+    "@heroui/skeleton": "^2.2.12",
     "@heroui/switch": "^2.2.18",
     "@heroui/table": "^2.2.18",
     "@heroui/toast": "^2.0.10",
@@ -26,6 +28,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.56.4",
+    "recharts": "^2.15.3",
     "zod": "^3.25.46",
     "zustand": "^5.0.5"
   },

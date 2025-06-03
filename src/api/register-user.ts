@@ -1,18 +1,6 @@
 "use server";
-
 import { api } from "@/lib/axios";
-
-interface RegisterData {
-  name: string;
-  email: string;
-  password: string;
-  verifyPassword: string;
-  phone: {
-    country: string;
-    ddd: string;
-    number: string;
-  };
-}
+import { RegisterData } from "@/store";
 
 interface RegisterResponse {
   codeIntern: string;
