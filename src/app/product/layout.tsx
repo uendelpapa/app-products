@@ -15,7 +15,7 @@ export default function ProductLayout({
   return (
     <main className="flex p-2 w-full min-h-screen">
       <SidebarServer />
-      <div className="flex-1 pl-4">{children}</div>
+      <div className="flex-1 md:pl-4">{children}</div>
     </main>
   );
 }

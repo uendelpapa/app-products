@@ -86,7 +86,7 @@ export default function SignUpPage() {
   return (
     <div className="min-h-screen flex items-center justify-center dark:from-default-900 dark:to-default-950">
       <div className="w-full bg-default-900 max-w-md dark:bg-default-900 rounded-2xl shadow-2xl p-8 border border-default-200 dark:border-default-800">
-        <h2 className="text-3xl font-extrabold mb-2 text-center text-blue-700 dark:text-blue-300 tracking-tight">
+        <h2 className="text-3xl font-extrabold mb-2 text-center tracking-tight">
           Criar Conta
         </h2>
         <p className="mb-8 text-center text-default-500 dark:text-default-400">
@@ -112,54 +112,51 @@ export default function SignUpPage() {
             {...register("email")}
             autoComplete="email"
             className="w-full"
-           
           />
           {errors.email && (
             <span className="text-red-500 text-xs">{errors.email.message}</span>
           )}
 
           <div className="flex gap-2">
-            <Input
-              id="country"
-              type="text"
-              label="País"
-              {...register("phone.country")}
-              className="w-1/3"
-             
-            />
-            <Input
-              id="ddd"
-              type="text"
-              label="DDD"
-              {...register("phone.ddd")}
-              className="w-1/3"
-             
-            />
-            <Input
-              id="number"
-              type="text"
-              label="Telefone"
-              {...register("phone.number")}
-              className="w-1/3"
-             
-            />
-          </div>
-          <div className="flex gap-2 min-h-[20px]">
-            {errors.phone?.country && (
-              <span className="text-red-500 text-xs flex-1">
-                {errors.phone.country.message}
-              </span>
-            )}
-            {errors.phone?.ddd && (
-              <span className="text-red-500 text-xs flex-1">
-                {errors.phone.ddd.message}
-              </span>
-            )}
-            {errors.phone?.number && (
-              <span className="text-red-500 text-xs flex-1">
-                {errors.phone.number.message}
-              </span>
-            )}
+            <div className="w-1/3">
+              <Input
+                id="country"
+                type="text"
+                label="+00"
+                {...register("phone.country")}
+              />
+              {errors.phone?.country && (
+                <span className="text-red-500 text-xs flex-1">
+                  {errors.phone.country.message}
+                </span>
+              )}
+            </div>
+            <div className="w-1/3">
+              <Input
+                id="ddd"
+                type="text"
+                label="DDD"
+                {...register("phone.ddd")}
+              />
+              {errors.phone?.ddd && (
+                <span className="text-red-500 text-xs flex-1">
+                  {errors.phone.ddd.message}
+                </span>
+              )}
+            </div>
+            <div className="w-1/3">
+              <Input
+                id="number"
+                type="text"
+                label="Telefone"
+                {...register("phone.number")}
+              />
+              {errors.phone?.number && (
+                <span className="text-red-500 text-xs flex-1">
+                  {errors.phone.number.message}
+                </span>
+              )}
+            </div>
           </div>
 
           <Input
@@ -169,10 +166,11 @@ export default function SignUpPage() {
             {...register("password")}
             autoComplete="new-password"
             className="w-full"
-           
           />
           {errors.password && (
-            <span className="text-red-500 text-xs">{errors.password.message}</span>
+            <span className="text-red-500 text-xs">
+              {errors.password.message}
+            </span>
           )}
 
           <Input
@@ -182,7 +180,6 @@ export default function SignUpPage() {
             {...register("verifyPassword")}
             autoComplete="new-password"
             className="w-full"
-           
           />
           {errors.verifyPassword && (
             <span className="text-red-500 text-xs">
@@ -192,7 +189,8 @@ export default function SignUpPage() {
 
           <Button
             type="submit"
-            className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg py-3 transition"
+            color="primary"
+            className="w-full mt-4 font-semibold rounded-lg py-3 transition"
             disabled={isLoading}
           >
             {isLoading ? "Cadastrando..." : "Cadastrar"}
@@ -202,7 +200,7 @@ export default function SignUpPage() {
           Já possui uma conta?{" "}
           <a
             href="/sign-in"
-            className="text-blue-600 hover:underline dark:text-blue-400 font-semibold"
+            className=" font-semibold"
           >
             Entrar
           </a>

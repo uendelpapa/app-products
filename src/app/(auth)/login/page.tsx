@@ -53,9 +53,7 @@ export default function SignIn() {
       setIsLoading(true);
       await login(data.email, data.password);
       successToast();
-      setTimeout(() => {
-        router.push("/");
-      }, 1000);
+      router.push("/");
     } catch (error) {
       setIsLoading(false);
       console.error("Erro ao fazer login:", error);
@@ -67,7 +65,7 @@ export default function SignIn() {
   return (
     <div className="min-h-screen flex items-center justify-center  dark:from-default-900 dark:to-default-950">
       <div className="w-full max-w-md bg-white dark:bg-default-900 rounded-2xl shadow-xl p-8 border border-default-200 dark:border-default-800">
-        <h2 className="text-3xl font-bold mb-2 text-center text-blue-700 dark:text-blue-300">
+        <h2 className="text-3xl font-bold mb-2 text-center">
           Entrar
         </h2>
         <p className="mb-6 text-center text-default-500 dark:text-default-400">
@@ -100,7 +98,8 @@ export default function SignIn() {
 
           <Button
             type="submit"
-            className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg py-3 transition"
+            color="primary"
+            className="w-full mt-4 font-semibold rounded-lg py-3 transition"
             disabled={isLoading}
           >
             {isLoading ? "Entrando..." : "Entrar"}
@@ -110,7 +109,7 @@ export default function SignIn() {
           Não possui uma conta?{" "}
           <a
             href="/register"
-            className="text-blue-600 hover:underline dark:text-blue-400 font-semibold"
+            className=" font-semibold"
           >
             Cadastre-se
           </a>
