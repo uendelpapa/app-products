@@ -1,5 +1,5 @@
 "use client";
-import { AddProductButton } from "@/components/add-product-button";
+
 import { useProductStore } from "@/store";
 import {
   Table,
@@ -20,7 +20,8 @@ import { z } from "zod";
 
 import { IconFilter, IconTrash } from "@tabler/icons-react";
 import { IconCoffee, IconId, IconInfoCircle } from "@tabler/icons-react";
-import { UpdateProductButton } from "@/components/update-product-button";
+import { UpdateProductModal } from "@/components/update-product-modal";
+import { AddProductModal } from "@/components/add-product-modal";
 
 const columns = [
   {
@@ -131,7 +132,7 @@ export default function Home() {
           </Button>
         </form>
         <div className="flex gap-4">
-          <AddProductButton />
+          <AddProductModal />
         </div>
       </div>
 
@@ -148,7 +149,7 @@ export default function Home() {
                 <TableCell>
                   {columnKey === "" ? (
                     <div className="flex justify-end gap-4">
-                      <UpdateProductButton id={item.id} />
+                      <UpdateProductModal id={item.id} />
                       <Button
                         color="danger"
                         variant="bordered"

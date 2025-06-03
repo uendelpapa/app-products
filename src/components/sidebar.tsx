@@ -7,6 +7,8 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 import { Button } from "@heroui/button";
+import { ThemeToggle } from "./theme/theme.toggle";
+import { useEffect, useState } from "react";
 
 interface SidebarProps {
   username: string | null;
@@ -14,22 +16,36 @@ interface SidebarProps {
 }
 
 export function Sidebar({ username, email }: SidebarProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   function handleLogout() {
-    // Apaga todos os cookies
     document.cookie.split(";").forEach((c) => {
       document.cookie = c
         .replace(/^ +/, "")
         .replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
     });
-    // Opcional: redireciona para a página de login
     window.location.href = "/login";
   }
 
+  if (!mounted) {
+    // Evita renderizar até o client estar pronto
+    return null;
+  }
+
   return (
-    <aside className="max-w-60 w-full flex flex-col flex-1 border-r border-default-200 dark:border-default-700 bg-default-100 dark:bg-default-900 rounded-xl">
+    <aside className="max-w-60 w-full h-full flex flex-col flex-1 border-r border-default-200 dark:border-default-200 bg-default-100 rounded-xl">
       <div className="p-6 flex items-center gap-2 text-xl font-bold">
-        <IconCoffee className="size-6" />
-        Coffee Mania
+        <div className="flex items-center gap-2">
+          <IconCoffee className="size-8" />
+          <span className=" leading-4">Coffee Mania</span>
+        </div>
+        <div>
+          <ThemeToggle />
+        </div>
       </div>
       <nav className="flex flex-col gap-2 px-4 justify-between space-y-4 h-full">
         <div className="flex flex-col gap-2">
@@ -50,7 +66,7 @@ export function Sidebar({ username, email }: SidebarProps) {
         </div>
 
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2 px-3 py-2 rounded bg-default-200 dark:bg-default-800">
+          <div className="flex items-center gap-2 px-3 py-2 rounded bg-default-200 ">
             <div>
               <IconUser className="size-5" />
             </div>
@@ -63,7 +79,7 @@ export function Sidebar({ username, email }: SidebarProps) {
               <span className="text-sm font-semibold">{email}</span>
             </div>
           </div>
-          <Button color="danger" size="md" onPress={() => handleLogout()}>
+          <Button color="danger" size="md" onPress={handleLogout}>
             <span className="text-sm font-bold">Sair</span>
             <IconLogout className="size-5" />
           </Button>

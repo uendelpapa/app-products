@@ -26,7 +26,7 @@ const addProductSchema = z.object({
 
 type AddProductData = z.infer<typeof addProductSchema>;
 
-export function AddProductButton() {
+export function AddProductModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { loading, addProduct } = useProductStore();
 

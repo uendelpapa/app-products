@@ -113,7 +113,7 @@ export default function DashboardCharts() {
   return (
     <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
       {/* Card 1: Receita semanal */}
-      <div className=" bg-default-100 dark:bg-default-900 rounded-2xl shadow-lg p-6 flex flex-col">
+      <div className=" bg-default-100 rounded-2xl shadow-lg p-6 flex flex-col">
         <h2 className="text-lg font-semibold mb-2 text-default-900 dark:text-default-100">
           Receita semanal
         </h2>
@@ -162,7 +162,7 @@ export default function DashboardCharts() {
       </div>
 
       {/* Card 2: Radar de desempenho */}
-      <div className="bg-default-100 dark:bg-default-900 rounded-2xl shadow-lg p-6 flex flex-col">
+      <div className="bg-default-100 rounded-2xl shadow-lg p-6 flex flex-col">
         <h2 className="text-lg font-semibold mb-2 text-default-900 dark:text-default-100">
           Desempenho por categoria
         </h2>
@@ -202,7 +202,7 @@ export default function DashboardCharts() {
       </div>
 
       {/* Card 3: RadialBar de métricas */}
-      <div className="bg-default-100 dark:bg-default-900 rounded-2xl shadow-lg p-6 flex flex-col md:col-span-2">
+      <div className="bg-default-100 rounded-2xl shadow-lg p-6 flex flex-col md:col-span-2">
         <h2 className="text-lg font-semibold mb-2">Métricas gerais</h2>
         <ResponsiveContainer width="100%" height={250}>
           <ScatterChart

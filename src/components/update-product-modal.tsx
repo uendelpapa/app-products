@@ -32,7 +32,7 @@ const addProductSchema = z.object({
 
 type AddProductData = z.infer<typeof addProductSchema>;
 
-interface UpdateProductButtonProps {
+interface UpdateProductModalProps {
   id: string;
 }
 
@@ -63,7 +63,7 @@ export interface ProductResponse {
   };
 }
 
-export function UpdateProductButton({ id }: UpdateProductButtonProps) {
+export function UpdateProductModal({ id }: UpdateProductModalProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { getProduct, updateProduct, updateThumbnail } = useProductStore();
   const [product, setProduct] = useState<ProductResponse | null>(null);
