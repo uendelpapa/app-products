@@ -35,14 +35,13 @@ interface ProductProps {
 
 export async function getProduct({ id }: ProductProps) {
   try {
-    const token = cookies().get('auth_token')!.value;
+    const token = cookies().get("auth_token")!.value;
     const response = await api.get<ProductResponse>(`products/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
-      }
+      },
     });
 
-    console.log("Product fetched successfully:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching product:", error);

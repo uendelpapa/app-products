@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import { api } from "@/lib/axios";
 import { cookies } from "next/headers";
 
@@ -14,9 +14,14 @@ interface UpdateProductResponse {
   description: string;
   status: boolean;
 }
-export async function updateProduct({ id, title, description, status }: UpdateProductData) {
+export async function updateProduct({
+  id,
+  title,
+  description,
+  status,
+}: UpdateProductData) {
   try {
-    const token = cookies().get('auth_token')!.value;
+    const token = cookies().get("auth_token")!.value;
 
     const response = await api.put<UpdateProductResponse>(
       `products/${id}`,
@@ -33,7 +38,6 @@ export async function updateProduct({ id, title, description, status }: UpdatePr
       }
     );
 
-    console.log("Produto atualizado com sucesso:", response.data);
     return response.data;
   } catch (error) {
     console.error("Erro ao atualizar produto:", error);

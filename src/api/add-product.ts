@@ -10,14 +10,13 @@ export type AddProductResponse = {
 
 export async function addProduct(formData: FormData) {
   try {
-    const token = cookies().get('auth_token')!.value;
+    const token = cookies().get("auth_token")!.value;
     const response = await api.post<AddProductResponse>("products", formData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    console.log("Response from API:", response.data);
     return response.data;
   } catch (error) {
     console.error("Erro ao adicionar produto:", error);

@@ -15,7 +15,6 @@ export async function getProducts() {
       }
     );
 
-    console.log("Response from API:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error);

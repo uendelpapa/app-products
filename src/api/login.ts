@@ -60,7 +60,6 @@ export async function login({ email, password }: SignInData) {
       path: "/",
     });
 
-    console.log("Response from API:", response.data);
     return response.data;
   } catch (error: any) {
     console.error(
