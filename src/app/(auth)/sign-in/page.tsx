@@ -65,7 +65,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6">
+    <div className="w-full max-w-md mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Login</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>

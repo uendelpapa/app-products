@@ -34,7 +34,7 @@ export default function RootLayout({
       >
         <Provider>
           {/* <SidebarServer /> */}
-          <main className="flex w-full h-full">{children}</main>
+          {children}
         </Provider>
       </body>
     </html>

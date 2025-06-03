@@ -65,31 +65,57 @@ export default function SignIn() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6">Login</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <Input label="E-mail" type="email" {...register("email")} />
+    <div className="min-h-screen flex items-center justify-center  dark:from-default-900 dark:to-default-950">
+      <div className="w-full max-w-md bg-white dark:bg-default-900 rounded-2xl shadow-xl p-8 border border-default-200 dark:border-default-800">
+        <h2 className="text-3xl font-bold mb-2 text-center text-blue-700 dark:text-blue-300">
+          Entrar
+        </h2>
+        <p className="mb-6 text-center text-default-500 dark:text-default-400">
+          Acesse sua conta para continuar
+        </p>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <Input
+            label="E-mail"
+            type="email"
+            {...register("email")}
+            className="w-full"
+            autoComplete="email"
+          />
           {errors.email && (
-            <span className="text-red-500 text-sm">{errors.email.message}</span>
+            <span className="text-red-500 text-xs">{errors.email.message}</span>
           )}
-        </div>
-        <div>
-          <Input label="Senha" type="password" {...register("password")} />
+
+          <Input
+            label="Senha"
+            type="password"
+            {...register("password")}
+            className="w-full"
+            autoComplete="current-password"
+          />
           {errors.password && (
-            <span className="text-red-500 text-sm">
+            <span className="text-red-500 text-xs">
               {errors.password.message}
             </span>
           )}
+
+          <Button
+            type="submit"
+            className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg py-3 transition"
+            disabled={isLoading}
+          >
+            {isLoading ? "Entrando..." : "Entrar"}
+          </Button>
+        </form>
+        <div className="mt-6 text-center text-sm text-default-500 dark:text-default-400">
+          Não possui uma conta?{" "}
+          <a
+            href="/register"
+            className="text-blue-600 hover:underline dark:text-blue-400 font-semibold"
+          >
+            Cadastre-se
+          </a>
         </div>
-        <Button
-          type="submit"
-          className="w-full p-2 bg-blue-600 text-white rounded"
-          disabled={isLoading}
-        >
-          Entrar
-        </Button>
-      </form>
+      </div>
     </div>
   );
 }
