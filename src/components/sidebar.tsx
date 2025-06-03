@@ -76,7 +76,9 @@ export function Sidebar({ username, email }: SidebarProps) {
                   ? username.charAt(0).toUpperCase() + username.slice(1)
                   : null}
               </span>
-              <span className="text-sm font-semibold">{email}</span>
+                <span className="text-sm font-semibold truncate max-w-[140px]" title={email || undefined}>
+                {email}
+                </span>
             </div>
           </div>
           <Button color="danger" size="md" onPress={handleLogout}>
